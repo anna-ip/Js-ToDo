@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo list</title>
+   <link rel="stylesheet" href="style.css">
+    <title>To Do</title>
 </head>
 <body>
+    <h1>To Do</h1>
     <form action="">
-        <input type="text" name="todo" id="todo">
-        <button type="submit">Add</button>
+        <input type="text" id="todo-input">
+        <button type="button" id="todo-btn" onclick="outputValue()">Add</button>
     </form>
+    <div>
+        <h2>List of todos</h2>
+        <ul>
+            <p id="todo-list"></p>
+        </ul>
+    </div>
     <script src="todo.js"></script>
 </body>
 </html>
