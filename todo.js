@@ -1,22 +1,31 @@
 const userInput = document.getElementById("todo-input");
 const addBtn = document.getElementById("todo-btn");
-let list = document.getElementById("todo-list");
+const list = document.querySelector("#todo-list");
+const todoDiv = document.createElement("div");
+const todoLi = document.createElement("li");
 
-// input text added to a list/array with the submit button
-let todoList = [];
-
-//get hold of the input value
-function outputValue() {
-  let newTodo = userInput.value;
-  list = document.getElementById("todo-list").innerHTML = newTodo;
-  todoList.push(list)
-  console.log('todoList',todoList)
-}
-
-// add eventlistner to the btn to update/push to the list/array
 addBtn.addEventListener("click", addTodo);
 
-function addTodo(list) {
-  //take the user input and add to the todoList
-  
+let todoList = [];
+
+//TODO appendchild is not working correct
+function addTodo(event) {
+  event.preventDefault();
+
+  todoLi.innerText = userInput.value;
+  console.log("todoLi", todoLi); //<li>'milk'</li>
+
+  todoDiv.appendChild(todoLi);
+  console.log("todoDiv", todoDiv); //<div><li>'milk'</li></div> */
+
+  list.appendChild(todoDiv);
+  console.log("list", list);
+
+  const todo = todoLi.innerHTML;
+  console.log("todo", todo); //milk
+
+  todoList.push(todo);
+  console.log("todoList", todoList); //['milk']
+
+  userInput.value = "";
 }
