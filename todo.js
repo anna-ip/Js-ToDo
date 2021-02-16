@@ -1,31 +1,53 @@
 const userInput = document.getElementById("todo-input");
 const addBtn = document.getElementById("todo-btn");
 const list = document.querySelector("#todo-list");
-const todoDiv = document.createElement("div");
-const todoLi = document.createElement("li");
+const day = document.querySelector("#day");
 
-addBtn.addEventListener("click", addTodo);
-
+const time = new Date();
 let todoList = [];
 
-//TODO appendchild is not working correct
+addBtn.addEventListener("click", addTodo);
+day.addEventListener("click", sortDay);
+
 function addTodo(event) {
   event.preventDefault();
 
+  const todoDiv = document.createElement("div");
+
+  const timeStamp = document.createElement("p");
+  timeStamp.innerText = time.toLocaleString();
+
+  const title = document.createElement("h3"); //might not be in tje same divv as time and todo
+  title.innerText = day.value;
+
+  const todoLi = document.createElement("li");
   todoLi.innerText = userInput.value;
-  console.log("todoLi", todoLi); //<li>'milk'</li>
 
+  todoDiv.appendChild(title);
+  todoDiv.appendChild(timeStamp);
   todoDiv.appendChild(todoLi);
-  console.log("todoDiv", todoDiv); //<div><li>'milk'</li></div> */
-
   list.appendChild(todoDiv);
-  console.log("list", list);
 
   const todo = todoLi.innerHTML;
-  console.log("todo", todo); //milk
-
-  todoList.push(todo);
-  console.log("todoList", todoList); //['milk']
+  const timeAndDate = timeStamp.innerText;
+  const dayTitle = title.innerText;
+  writeToObject(dayTitle, timeAndDate, todo);
 
   userInput.value = "";
+}
+
+// Add a function to filter the todos depending on chosen day
+function sortDay() {
+  const todos = list.childNodes;
+  console.log("childNodes", todos);
+}
+
+function writeToObject(dayTitle, timeAndDate, todo) {
+  const todoObject = {
+    title: dayTitle,
+    date: timeAndDate,
+    todo: todo,
+  };
+  todoList.push(todoObject);
+  console.log("todoList", todoList);
 }
