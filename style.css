@@ -1,6 +1,31 @@
+h1 {
+  text-align: center;
+}
+.timestamp {
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+.select-container, .input-container {
+  display: flex;
+  flex-direction: column;
+}
 ul {
+  list-style-type: none;
   color: green;
 }
 li {
   color: blue;
+}
+.checked + label {
+  text-decoration: line-through;
+}
+.filter-day {
+  display: flex;
+  flex-direction: column;
+  color: red;
 }
