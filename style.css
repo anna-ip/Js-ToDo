@@ -1,31 +1,79 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem;
+  align-items: center;
+  border: 2px solid orange;
+}
 h1 {
   text-align: center;
+}
+h3 {
+  text-transform: capitalize;
 }
 .timestamp {
   text-align: center;
 }
 form {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: flex-end;
+  flex-direction: column;
+  width: 100%;
 }
-.select-container, .input-container {
+.select-container,
+.input-container {
   display: flex;
   flex-direction: column;
+}
+todo-container {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
 }
 ul {
   list-style-type: none;
+  padding: 0;
   color: green;
 }
 li {
+  font-size: 1.2rem;
   color: blue;
 }
+.todo-div {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
 .checked + label {
+  /*!not working*/
   text-decoration: line-through;
+}
+.delete-btn {
+  background-color: inherit;
+  border: none;
+  font-size: medium;
+}
+.delete-btn::before {
+  content: "X";
+}
+.delete-todo {
+  display: none;
 }
 .filter-day {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   color: red;
+}
+
+@media (min-width: 688px) {
+  form {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-around;
+  }
 }

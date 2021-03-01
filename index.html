@@ -7,30 +7,32 @@
     <title>To Do</title>
   </head>
   <body>
-    <header id="header">
-      <h1>Weekly To Do List</h1>
-    </header>
-    <form>
-      <div class="input-container">
-        <label>To-do:</label>
-        <input type="text" id="todo-input" />
+    <div class="main-container">
+      <header id="header">
+        <h1>Weekly To Do List</h1>
+      </header>
+      <form>
+        <div class="input-container">
+          <!-- <label>To-do:</label> -->
+          <input type="text" id="todo-input" placeholder="Your To-do" />
+        </div>
+        <div class="select-container">
+          <label>Day:</label>
+          <select id="day" >
+            <option value="monday">Monday</option>
+            <option value="tuesday">Tuesday</option>
+            <option value="wednesday">Wednesday</option>
+            <option value="thursday">Thursday</option>
+            <option value="friday">Friday</option>
+            <option value="weekend">Next Week</option>
+          </select>
+        </div>
+        <button type="submit" id="todo-btn">Add</button>
+      </form>
+      <div class="todo-container">
+        <h2>List of todos</h2>
+        <ul id="todo-list"></ul>
       </div>
-      <div class="select-container">
-        <label>Day:</label>
-        <select id="day">
-          <option value="monday">Monday</option>
-          <option value="tuesday">Tuesday</option>
-          <option value="wednesday">Wednesday</option>
-          <option value="thursday">Thursday</option>
-          <option value="friday">Friday</option>
-          <option value="weekend">Weekend</option>
-        </select>
-      </div>
-      <button type="submit" id="todo-btn">Add</button>
-    </form>
-    <div>
-      <h2>List of todos</h2>
-      <ul id="todo-list"></ul>
     </div>
     <script src="todo.js"></script>
   </body>
