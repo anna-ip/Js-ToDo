@@ -50,7 +50,7 @@ li {
   align-items: baseline;
 }
 .checked + label {
-  /*!not working*/
+  /*?not working*/
   text-decoration: line-through;
 }
 .delete-btn {
