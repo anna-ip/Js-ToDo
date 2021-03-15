@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>To Do</title>
   </head>
   <body>
@@ -14,7 +19,12 @@
       <form>
         <div class="input-container">
           <!-- <label>To-do:</label> -->
-          <input type="text" id="todo-input" placeholder="Your To-do" />
+          <input
+            type="text"
+            id="todo-input"
+            class="todo-input"
+            placeholder="Your To-do"
+          />
         </div>
         <div class="select-container">
           <label>Day:</label>
@@ -30,7 +40,7 @@
         <button type="submit" id="todo-btn">Add</button>
       </form>
       <div class="todo-container">
-        <h2>List of todos</h2>
+        <h2>My week</h2>
         <ul id="todo-list"></ul>
       </div>
     </div>
