@@ -2,22 +2,26 @@ body {
   display: flex;
   justify-content: center;
   font-family: "Roboto", sans-serif;
+  margin: 0;
 }
 .main-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 500px;
-  padding: 1rem;
   align-items: center;
-  border: 2px solid #e63900;
+  margin-top: 1rem;
 }
 h1 {
   text-align: center;
 }
+h2 {
+  padding: 0 1.5rem;
+}
 h3 {
   text-transform: capitalize;
   color: #e63900;
+  padding: 0 1.5rem;
 }
 p {
   font-size: 0.8rem;
@@ -30,23 +34,43 @@ form {
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 1rem;
 }
 .todo-input {
   padding: 0.4em 0.25em;
   margin-bottom: 1rem;
-  width: 100%;
   background: transparent;
   color: #afb5bb;
   font-size: 1.55em;
   border: none;
   border-bottom-style: inset;
+  font-family: "Roboto";
 }
 .select-container,
 .input-container {
   display: flex;
   flex-direction: column;
+  margin: 0.5rem;
 }
-todo-container {
+.select-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+#todo-btn {
+  display: flex;
+  align-self: flex-end;
+  width: 5rem;
+  height: 25px;
+  margin-right: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #e63900;
+  border: none;
+  border-radius: 2px;
+  font-size: 1rem;
+  font-family: "Roboto";
+}
+.todo-container {
   display: flex;
   flex-direction: column;
   align-self: start;
@@ -58,6 +82,8 @@ ul {
   padding: 0;
 }
 li {
+  flex-direction: row;
+  display: flex;
   font-size: 1.2rem;
 }
 .todo-div {
@@ -69,9 +95,11 @@ li {
 .todo {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  width: 100%;
+  width: -webkit-fill-available;
+  margin: 0 1.5rem;
 }
 .checked + label {
   text-decoration: line-through;
@@ -95,6 +123,9 @@ li {
 }
 
 @media (min-width: 688px) {
+  .main-container {
+    border: 2px solid #e63900;
+  }
   form {
     flex-direction: row;
     align-items: flex-end;

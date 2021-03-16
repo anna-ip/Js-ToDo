@@ -29,9 +29,8 @@ timeStamp();
 //**** Render the list ****/
 function renderList(todoList) {
   list.innerHTML = "";
-  todoList.forEach((todo) => {
-    //***** then render the list *******
 
+  todoList.forEach((todo) => {
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo-div");
     todoDiv.setAttribute("id", todo.id);
@@ -40,8 +39,11 @@ function renderList(todoList) {
     //? Need some kind of checking here or if statement
     const title = document.createElement("h3");
     title.innerText = todo.title;
+    title.setAttribute("id", title.innerText);
+
     const innerDiv = document.createElement("div");
     innerDiv.classList.add("todo");
+
     const todoLi = document.createElement("li");
     const todoLabel = document.createElement("label");
     todoLabel.innerText = todo.todo;
@@ -51,7 +53,11 @@ function renderList(todoList) {
     checkbox.setAttribute("id", "checkbox");
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
-    todoDiv.appendChild(title);
+
+    const titleExist = document.getElementById(title.innerText);
+    if (!titleExist) {
+      todoDiv.appendChild(title);
+    }
     todoLi.appendChild(todoLabel);
     innerDiv.appendChild(todoLi);
     innerDiv.appendChild(timeParagraph);
@@ -93,28 +99,6 @@ function addTodo(event) {
   toggleCheckBox();
 }
 
-//**** Filter the list  ******/
-//Todo -Figure out whats the best solution, filter like below or using .filter?
-//Todo -If I use .filter, do I need to push it back to the array or another array?
-//Todo -If I keep like this where days is my new object alt. array I need to figure out how to render it?
-//Add a function to filter or sort the todos on title/day and add each todo under specified day(title)
-//Maybe use .filter on the todoList instead.
-// function filterByDay() {
-//   let days = {};
-//   console.log("will arrange this List:", todoList);
-//   todoList.map((todo) => {
-//     days[todo.title] = [];
-//     return days;
-//   });
-//   for (let i = 0; i < todoList.length; i++) {
-//     days[todoList[i].title].push(todoList[i]);
-//   }
-//   console.log(days);
-//   //this render function doesn work with this code ?
-//   renderList(days);
-// }
-
-//Todo -This isnt working at the moment
 function toggleCheckBox() {
   const toggleBoxes = document.querySelectorAll("input[type=checkbox]");
   toggleBoxes.forEach((toggleBox) => {
