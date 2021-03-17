@@ -31,39 +31,53 @@ function renderList(todoList) {
   list.innerHTML = "";
 
   todoList.forEach((todo) => {
-    const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo-div");
-    todoDiv.setAttribute("id", todo.id);
+    const dayContainer = document.createElement("div");
+    dayContainer.classList.add("day-container");
+
     timeParagraph = document.createElement("p");
     timeParagraph.innerText = todo.dateAdded;
-    //? Need some kind of checking here or if statement
+
     const title = document.createElement("h3");
+    title.classList.add("title");
     title.innerText = todo.title;
     title.setAttribute("id", title.innerText);
+    dayContainer.classList.add(title.innerText);
 
-    const innerDiv = document.createElement("div");
-    innerDiv.classList.add("todo");
+    const todoDiv = document.createElement("div");
+    todoDiv.setAttribute("id", todo.id);
+    todoDiv.classList.add("todo");
 
     const todoLi = document.createElement("li");
     const todoLabel = document.createElement("label");
     todoLabel.innerText = todo.todo;
+
     const checkbox = document.createElement("input");
     todoLi.prepend(checkbox);
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("id", "checkbox");
+
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
 
     const titleExist = document.getElementById(title.innerText);
+
     if (!titleExist) {
-      todoDiv.appendChild(title);
+      dayContainer.appendChild(title);
     }
+
     todoLi.appendChild(todoLabel);
-    innerDiv.appendChild(todoLi);
-    innerDiv.appendChild(timeParagraph);
-    innerDiv.appendChild(deleteBtn);
-    todoDiv.appendChild(innerDiv);
-    list.appendChild(todoDiv);
+    todoDiv.appendChild(todoLi);
+    todoLi.appendChild(timeParagraph);
+    todoDiv.appendChild(deleteBtn);
+    //append todoDiv to daycontainer containing a class with same id as todo.id
+    const dayDiv = document.getElementsByClassName(title.innerText);
+    //[0].attributes?.ownerElement?.childNodes[0]?.classList[1];
+    console.log(dayDiv);
+    if (dayDiv.contains(todo.id) === todo.id) {
+      console.log("Yes!");
+    }
+    dayContainer.appendChild(todoDiv);
+    list.appendChild(dayContainer);
   });
 }
 
@@ -112,11 +126,17 @@ function toggleCheckBox() {
   });
 }
 
+//! Not working at the moment and need to add if no todos are left remove the title as well.
 function deleteTodo(event) {
+  console.log("Should show event ", event);
   const item = event.target;
+  console.log(item.classList[0]);
   if (item.classList[0] === "delete-btn") {
+    //might be that the id is further up in the node list?
     const todo = item.parentElement;
+    console.log(todo.id);
     delete todoList[item.parentElement.id];
+    console.log(todoList[item.parentElement.id]);
     todo.classList.add("delete-todo");
     todo.addEventListener("deleteTodo", function () {
       console.log("delete function");
