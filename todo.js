@@ -69,13 +69,9 @@ function renderList(todoList) {
     todoDiv.appendChild(todoLi);
     todoLi.appendChild(timeParagraph);
     todoDiv.appendChild(deleteBtn);
-    //append todoDiv to daycontainer containing a class with same id as todo.id
-    const dayDiv = document.getElementsByClassName(title.innerText);
-    //[0].attributes?.ownerElement?.childNodes[0]?.classList[1];
-    console.log(dayDiv);
-    if (dayDiv.contains(todo.id) === todo.id) {
-      console.log("Yes!");
-    }
+
+    //append todoDiv to daycontainer with sam className as the id of the todo (todo.id)
+
     dayContainer.appendChild(todoDiv);
     list.appendChild(dayContainer);
   });
