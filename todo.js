@@ -5,7 +5,6 @@ const list = document.getElementById("todo-list");
 const day = document.getElementById("day");
 
 let id = 0;
-const time = new Date();
 let todoList = [];
 
 addBtn.addEventListener("click", addTodo);
@@ -22,7 +21,6 @@ function timeStamp() {
   timeParagraph.setAttribute("class", "timestamp");
   timeParagraph.innerText = time.toDateString();
   header.appendChild(timeParagraph);
-  return timeParagraph;
 }
 timeStamp();
 
@@ -35,7 +33,7 @@ function renderList(todoList) {
     dayContainer.classList.add("day-container");
 
     timeParagraph = document.createElement("p");
-    timeParagraph.innerText = todo.dateAdded;
+    timeParagraph.innerText = todo.dateAdded.toLocaleString();
 
     const title = document.createElement("h3");
     title.classList.add("title");
@@ -59,21 +57,34 @@ function renderList(todoList) {
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
 
+    const sortBtnDiv = document.createElement("div");
+    sortBtnDiv.classList.add("sort-btn-container");
+    const ascBtn = document.createElement("button");
+    ascBtn.classList.add("asc-btn");
+    const descBtn = document.createElement("button");
+    descBtn.classList.add("desc-btn");
+
     const titleExist = document.getElementById(title.innerText);
 
     if (!titleExist) {
       dayContainer.appendChild(title);
+      todoLi.appendChild(todoLabel);
+      todoDiv.appendChild(todoLi);
+      todoLi.appendChild(timeParagraph);
+      todoDiv.appendChild(deleteBtn);
+      dayContainer.appendChild(todoDiv);
+      list.appendChild(dayContainer);
+    } else {
+      todoLi.appendChild(todoLabel);
+      todoDiv.appendChild(todoLi);
+      todoLi.appendChild(timeParagraph);
+      todoDiv.appendChild(deleteBtn);
+      document.querySelector(`.${title.innerText}`).appendChild(todoDiv);
     }
-
-    todoLi.appendChild(todoLabel);
-    todoDiv.appendChild(todoLi);
-    todoLi.appendChild(timeParagraph);
-    todoDiv.appendChild(deleteBtn);
-
-    //append todoDiv to daycontainer with sam className as the id of the todo (todo.id)
-
-    dayContainer.appendChild(todoDiv);
-    list.appendChild(dayContainer);
+    // Add a condition later for only showing if there is more than two todoLi
+    sortBtnDiv.appendChild(ascBtn);
+    sortBtnDiv.appendChild(descBtn);
+    dayContainer.appendChild(sortBtnDiv);
   });
 }
 
@@ -91,21 +102,41 @@ function sortListByDay(todoList) {
   });
 }
 
+// sort the todos inside .day-container via btn in an asc or desc order.
+// .sort asc by default
+function sortTodosByDate() {
+  const dayContainer = document.querySelector(".day-container");
+  console.log(dayContainer);
+
+  ascBtn.addEventListener("click", function () {
+    dayContainer.sort(function (a, b) {
+      let aDate = a.dateAdded;
+      let newA = aDate.getTime();
+      // console.log(newA);
+      let bDate = b.dateAdded;
+      let newB = bDate.getTime();
+      // console.log(newB);
+      return newA - newB;
+    });
+  });
+}
+
 //****** Add Todo function ******
 function addTodo(event) {
   event.preventDefault();
+  let time = new Date();
   const newId = id++;
   const todo = {
     id: newId,
     todo: getUserInput(),
-    dateAdded: time.toLocaleString(),
+    dateAdded: time,
     title: day.value,
   };
   todoList.push(todo);
   console.log("todoList in addTodo:", todoList);
   userInput.value = "";
   renderList(sortListByDay(todoList));
-
+  //? renderList(sortTodosByDate(todoList));
   toggleCheckBox();
 }
 
@@ -122,20 +153,13 @@ function toggleCheckBox() {
   });
 }
 
-//! Not working at the moment and need to add if no todos are left remove the title as well.
 function deleteTodo(event) {
-  console.log("Should show event ", event);
   const item = event.target;
-  console.log(item.classList[0]);
   if (item.classList[0] === "delete-btn") {
-    //might be that the id is further up in the node list?
     const todo = item.parentElement;
-    console.log(todo.id);
     delete todoList[item.parentElement.id];
-    console.log(todoList[item.parentElement.id]);
     todo.classList.add("delete-todo");
     todo.addEventListener("deleteTodo", function () {
-      console.log("delete function");
       todo.remove();
     });
   }

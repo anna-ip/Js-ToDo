@@ -104,6 +104,24 @@ input[type="checkbox"] {
   flex-direction: column;
   align-items: baseline;
 }
+.asc-btn {
+  content: "V";
+}
+.desc-btn {
+  content: "▲";
+}
+.asc-btn,
+.desc-btn {
+  background-color: yellow;
+  /* border: none; */
+  font-size: medium;
+  font-weight: 700;
+  height: 15px;
+}
+.sort-btn-container {
+  display: flex;
+  flex-direction: column;
+}
 .todo {
   display: flex;
   flex-direction: row;
