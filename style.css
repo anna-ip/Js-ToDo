@@ -110,8 +110,8 @@ input[type="checkbox"] {
 .desc-btn {
   content: "▲";
 }
-.asc-btn,
-.desc-btn {
+.asc,
+.desc {
   background-color: yellow;
   /* border: none; */
   font-size: medium;

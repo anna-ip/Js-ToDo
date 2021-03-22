@@ -5,10 +5,15 @@ const list = document.getElementById("todo-list");
 const day = document.getElementById("day");
 
 let id = 0;
+// GLOBAL STATE
+// ----------------
 let todoList = [];
+let listSortOrder = {};
+// ----------------
 
 addBtn.addEventListener("click", addTodo);
 list.addEventListener("click", deleteTodo);
+list.addEventListener("click", setSortOrder);
 
 function getUserInput() {
   let value = userInput.value;
@@ -25,10 +30,48 @@ function timeStamp() {
 timeStamp();
 
 //**** Render the list ****/
-function renderList(todoList) {
+function refreshList() {
+  // [ ... ]
+  // { monday: { todos: [], sortOrder: "asc"} }
+
+  console.log("Refresh list", todoList.slice());
+  // { monday: [], tuesday: []}
   list.innerHTML = "";
 
-  todoList.forEach((todo) => {
+  const todosAsObject = todoList.reduce((todoListObject, todoItem) => {
+    const currentTodoList = todoListObject[todoItem.title] ?? [];
+    currentTodoList.push(todoItem);
+
+    return {
+      ...todoListObject,
+      [todoItem.title]: currentTodoList,
+    };
+  }, {});
+
+  console.log(todosAsObject);
+
+  const daysOrder = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "weekend",
+  ].forEach((day) => {
+    const todosForDay = todosAsObject[day] ?? [];
+    renderDay(todosForDay, listSortOrder[day]);
+  });
+}
+
+function renderDay(todos, sortOrder) {
+  todos.sort((a, b) => {
+    const order = sortOrder === "desc" ? -1 : 1;
+    return (a.dateAdded.getTime() - b.dateAdded.getTime()) * order;
+  });
+
+  console.log("render day with sort order", sortOrder);
+
+  todos.forEach((todo) => {
     const dayContainer = document.createElement("div");
     dayContainer.classList.add("day-container");
 
@@ -60,9 +103,11 @@ function renderList(todoList) {
     const sortBtnDiv = document.createElement("div");
     sortBtnDiv.classList.add("sort-btn-container");
     const ascBtn = document.createElement("button");
-    ascBtn.classList.add("asc-btn");
+    ascBtn.classList.add("sort-order-btn");
+    ascBtn.classList.add("asc");
     const descBtn = document.createElement("button");
-    descBtn.classList.add("desc-btn");
+    descBtn.classList.add("sort-order-btn");
+    descBtn.classList.add("desc");
 
     const titleExist = document.getElementById(title.innerText);
 
@@ -88,37 +133,17 @@ function renderList(todoList) {
   });
 }
 
-function sortListByDay(todoList) {
-  const daysOrder = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "weekend",
-  ];
-  return todoList.sort((item1, item2) => {
-    return daysOrder.indexOf(item1.title) - daysOrder.indexOf(item2.title);
-  });
-}
+function setSortOrder(e) {
+  let day;
+  let sortOrder;
+  const item = e.target;
 
-// sort the todos inside .day-container via btn in an asc or desc order.
-// .sort asc by default
-function sortTodosByDate() {
-  const dayContainer = document.querySelector(".day-container");
-  console.log(dayContainer);
-
-  ascBtn.addEventListener("click", function () {
-    dayContainer.sort(function (a, b) {
-      let aDate = a.dateAdded;
-      let newA = aDate.getTime();
-      // console.log(newA);
-      let bDate = b.dateAdded;
-      let newB = bDate.getTime();
-      // console.log(newB);
-      return newA - newB;
-    });
-  });
+  if (item.classList[0] === "sort-order-btn") {
+    sortOrder = item.classList[1];
+    day = item.closest(".day-container").classList[1];
+    listSortOrder[day] = sortOrder;
+    refreshList();
+  }
 }
 
 //****** Add Todo function ******
@@ -133,10 +158,9 @@ function addTodo(event) {
     title: day.value,
   };
   todoList.push(todo);
-  console.log("todoList in addTodo:", todoList);
   userInput.value = "";
-  renderList(sortListByDay(todoList));
-  //? renderList(sortTodosByDate(todoList));
+
+  refreshList();
   toggleCheckBox();
 }
 
@@ -155,12 +179,13 @@ function toggleCheckBox() {
 
 function deleteTodo(event) {
   const item = event.target;
+  console.log(item);
   if (item.classList[0] === "delete-btn") {
-    const todo = item.parentElement;
-    delete todoList[item.parentElement.id];
-    todo.classList.add("delete-todo");
-    todo.addEventListener("deleteTodo", function () {
-      todo.remove();
-    });
+    const todoId = item.parentElement.id;
+    const index = todoList.findIndex((todo) => todo.id === todoId);
+    console.log(index);
+    todoList.splice(index, 1);
+
+    refreshList();
   }
 }
