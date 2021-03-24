@@ -17,19 +17,43 @@
       <header id="header">
         <h1>Weekly To Do List</h1>
       </header>
-      <form>
+      <form id="add-form">
         <div class="input-container">
-          <!-- <label>To-do:</label> -->
           <input
             type="text"
             id="todo-input"
             class="todo-input"
             placeholder="Your To-do"
+            name="todo"
           />
         </div>
         <div class="select-container">
           <label class="select-label">Day:</label>
-          <select id="day">
+          <select id="day" name="title">
+            <option value="monday">Monday</option>
+            <option value="tuesday">Tuesday</option>
+            <option value="wednesday">Wednesday</option>
+            <option value="thursday">Thursday</option>
+            <option value="friday">Friday</option>
+            <option value="weekend">Weekend</option>
+          </select>
+        </div>
+        <button type="submit" id="todo-btn">ADD</button>
+      </form>
+
+      <form id="edit-form" class="hidden">
+        <div class="input-container">
+          <input
+            type="text"
+            id="edit-input"
+            class="todo-input"
+            placeholder="Your To-do"
+            name="todo"
+          />
+        </div>
+        <div class="select-container">
+          <label class="select-label">Day:</label>
+          <select id="edit-day" name="title">
             <option value="monday">Monday</option>
             <option value="tuesday">Tuesday</option>
             <option value="wednesday">Wednesday</option>
@@ -38,10 +62,11 @@
             <option value="weekend">Next Week</option>
           </select>
         </div>
-        <button type="submit" id="todo-btn">Add</button>
+        <input type="hidden" id="edit-todo-id" name="id" />
+        <button type="submit" id="save-btn">Save</button>
       </form>
+      <h2>My week</h2>
       <div class="todo-container">
-        <h2>My week</h2>
         <ul id="todo-list"></ul>
       </div>
     </div>

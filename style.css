@@ -16,20 +16,24 @@ h1 {
   text-align: center;
 }
 h2 {
+  align-self: baseline;
   padding: 0 1.5rem;
-  margin: 0;
+  margin: 1.5rem 0 0;
 }
 h3 {
-  width: 100%;
-  text-transform: capitalize;
+  width: 95%;
+  text-transform: uppercase;
   color: #e63900;
-  border-top: 2px solid black;
-  padding: 0.5rem 1.5rem 0;
+  border-top: 3px solid black;
+  padding: 0.5rem 0 0 1.5rem;
 }
 p {
   display: flex;
   width: inherit;
   font-size: 0.8rem;
+}
+button {
+  font-family: inherit;
 }
 .timestamp {
   justify-content: center;
@@ -42,11 +46,14 @@ form {
   width: 100%;
   padding: 1rem;
 }
+.hidden {
+  display: none;
+}
 .todo-input {
   padding: 0.4em 0.25em;
   margin-bottom: 1rem;
   background: transparent;
-  color: #afb5bb;
+  color: black;
   font-size: 1.55em;
   border: none;
   border-bottom-style: inset;
@@ -62,7 +69,8 @@ form {
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-#todo-btn {
+#todo-btn,
+#save-btn {
   display: flex;
   align-self: flex-end;
   width: 5rem;
@@ -72,18 +80,30 @@ form {
   align-items: center;
   background-color: #e63900;
   border: none;
-  border-radius: 2px;
+  border-radius: 3px;
   font-size: 1rem;
-  font-family: "Roboto";
+}
+.day-container {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin: 0 0.5rem;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
 }
 .todo-container {
   display: flex;
   flex-direction: column;
   align-self: start;
   width: 100%;
-  margin-top: 1.5rem;
 }
 ul {
+  width: 100%;
   list-style-type: none;
   padding: 0;
 }
@@ -99,28 +119,37 @@ li {
 input[type="checkbox"] {
   zoom: 1.2;
 }
-.day-container {
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-}
+
 .asc-btn {
   content: "V";
 }
 .desc-btn {
   content: "▲";
 }
-.asc,
-.desc {
-  background-color: yellow;
-  /* border: none; */
+.sort-order-btn {
+  display: flex;
+  align-self: center;
+  padding: 0.1rem;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: none;
   font-size: medium;
   font-weight: 700;
   height: 15px;
 }
+.asc::before {
+  content: "▲";
+}
+.desc::before {
+  content: "▼";
+}
 .sort-btn-container {
   display: flex;
   flex-direction: column;
+  height: 50px;
+  justify-content: space-between;
+  padding-left: 0.2rem;
 }
 .todo {
   display: flex;
@@ -131,11 +160,13 @@ input[type="checkbox"] {
   margin: 0 1.5rem;
 }
 label {
-  display: flex;
   width: -webkit-fill-available;
   font-size: 1.2rem;
 }
-.checked + label {
+label:first-letter {
+  text-transform: uppercase;
+}
+.checkbox:checked + label {
   text-decoration: line-through;
 }
 .delete-btn {
