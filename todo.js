@@ -42,18 +42,13 @@ function refreshList() {
     };
   }, {});
 
-  const daysOrder = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "weekend",
-  ].forEach((day) => {
-    const todosForDay = todosAsObject[day] ?? [];
+  ["monday", "tuesday", "wednesday", "thursday", "friday", "weekend"].forEach(
+    (day) => {
+      const todosForDay = todosAsObject[day] ?? [];
 
-    renderDay(todosForDay, listSortOrder[day]);
-  });
+      renderDay(todosForDay, listSortOrder[day]);
+    }
+  );
 }
 
 //----- Render each day -----
@@ -70,7 +65,7 @@ function renderDay(todos, sortOrder) {
   const dayContainer = document.createElement("div");
   dayContainer.classList.add("day-container");
 
-  const title = document.createElement("h3");
+  const title = document.createElement("h2");
   title.classList.add("title");
   title.innerText = todos[0].title;
   title.setAttribute("id", title.innerText);
@@ -102,7 +97,7 @@ function renderDay(todos, sortOrder) {
 
     const todoLi = document.createElement("li");
     const todoLabel = document.createElement("label");
-    todoLabel.innerText = todo.todo;
+    todoLabel.innerText = todo.todo[0].toUpperCase() + todo.todo.slice(1);
 
     const checkbox = document.createElement("input");
     todoLi.prepend(checkbox);
@@ -112,7 +107,6 @@ function renderDay(todos, sortOrder) {
 
     const editBtn = document.createElement("button");
     editBtn.classList.add("edit-btn");
-    //editBtn.innerText = "Edit";
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
 
@@ -123,6 +117,7 @@ function renderDay(todos, sortOrder) {
     todoDiv.appendChild(deleteBtn);
     todoContainer.appendChild(todoDiv);
   });
+
   if (todos.length >= 2) {
     descBtn.classList.add("sort-order-btn");
     descBtn.classList.add("desc");
