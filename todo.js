@@ -112,7 +112,7 @@ function renderDay(todos, sortOrder) {
 
     const editBtn = document.createElement("button");
     editBtn.classList.add("edit-btn");
-    editBtn.innerText = "Edit";
+    //editBtn.innerText = "Edit";
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
 
@@ -201,7 +201,7 @@ function openEditForm(event) {
     const todo = todoList[index];
 
     showform.querySelector("input[name=todo]").value = todo.todo;
-    showform.querySelectorAll("select[name=title]").value = todo.title;
+    showform.querySelector("select[name=title]").value = todo.title;
     showform.querySelector("input[name=id]").value = todo.id;
   }
 }

@@ -112,19 +112,80 @@ li {
   flex-direction: row;
   width: inherit;
   align-items: center;
+  /* checkbox styling */
+  position: relative;
 }
-#checkbox {
-  margin-right: 0.4rem;
+li label {
+  display: flex;
+  width: -webkit-fill-available;
+  font-size: 1.2rem;
+}
+/* checkbox styling */
+li label:before,
+li label:after {
+  pointer-events: none;
+}
+li label:before {
+  display: flex;
+  content: " ";
+  height: 15px;
+  width: 15px;
+  border: 2.5px solid #000;
+  background: #fff;
+  margin-right: 10px;
+}
+li label:after {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  display: flex;
+  content: " ";
+  height: 12px;
+  width: 12px;
+  background: #000;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+li label:after {
+  height: 5px;
+  width: 12px;
+  left: 5px;
+  border-bottom: solid 4px #000;
+  border-left: solid 4px #000;
+  background: none;
+  transform: rotate(-45deg) scale(0);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+  transform-origin: center center;
+}
+li input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  top: 35%;
+  left: 2px;
+  transform: rotate(-45deg) scale(0.7);
 }
 input[type="checkbox"] {
-  zoom: 1.2;
+  position: absolute;
+  top: 5px;
+  left: -2px;
+  height: 20px;
+  width: 20px;
+  -webkit-appearance: none;
 }
-
-.asc-btn {
-  content: "V";
+/* not working bcs label isn't display: block*/
+label::first-letter {
+  text-transform: uppercase;
 }
-.desc-btn {
-  content: "▲";
+.checkbox:checked + label {
+  text-decoration: line-through;
+  text-decoration-thickness: 0.14em;
+}
+.sort-btn-container {
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  width: 30px;
+  justify-content: space-between;
+  padding-left: 0.2rem;
 }
 .sort-order-btn {
   display: flex;
@@ -138,18 +199,11 @@ input[type="checkbox"] {
   font-weight: 700;
   height: 15px;
 }
-.asc::before {
+.asc:before {
   content: "▲";
 }
-.desc::before {
+.desc:before {
   content: "▼";
-}
-.sort-btn-container {
-  display: flex;
-  flex-direction: column;
-  height: 50px;
-  justify-content: space-between;
-  padding-left: 0.2rem;
 }
 .todo {
   display: flex;
@@ -159,24 +213,34 @@ input[type="checkbox"] {
   width: -webkit-fill-available;
   margin: 0 1.5rem;
 }
-label {
-  width: -webkit-fill-available;
-  font-size: 1.2rem;
-}
-label:first-letter {
-  text-transform: uppercase;
-}
-.checkbox:checked + label {
-  text-decoration: line-through;
-}
+.edit-btn,
 .delete-btn {
   background-color: inherit;
   border: none;
+}
+.edit-btn {
+  transform: rotate(90deg);
+  font-size: large;
+  font-weight: 500;
+}
+.edit-btn::before {
+  content: "✎";
+}
+.edit-btn:hover {
+  color: #e63900;
+  transform: rotate(90deg) scale(1.5);
+  border: 0.2px solid #e63900;
+  border-radius: 5px;
+}
+.delete-btn {
   font-size: medium;
   font-weight: 700;
 }
-.delete-btn::before {
+.delete-btn:before {
   content: "X";
+}
+.delete-btn:hover {
+  transform: scale(1.5);
 }
 .delete-todo {
   display: none;
